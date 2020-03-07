@@ -1,6 +1,5 @@
+cmake-build-debug
 .DS*
-cmake*
-Cmake*
 .idea
 *.o
 libft.a
