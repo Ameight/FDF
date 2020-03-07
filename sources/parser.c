@@ -43,7 +43,7 @@ t_point		**allocate_memory_for_map(t_point point)
 	}
 	return (map);
 }
-
+#include "stdio.h"
 t_point		**fill_map(t_mlx win, t_point **map, char **stock)
 {
 	int		i;
@@ -89,5 +89,6 @@ void		reader(int fd)
 	map = validator(buf, win);
 	win->list = map;
 	draw_map(win, map);
+	mlx_put_image_to_window(win->mp, win->wp, win->img, 0, 0);
 	mlx_loop(win->mp);
 }

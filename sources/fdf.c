@@ -24,14 +24,14 @@ void		pixel_img(t_mlx *win, t_point dot)
 			win->data[point] = dot.hue.rgb.b;
 			win->data[++point] = dot.hue.rgb.g;
 			win->data[++point] = dot.hue.rgb.r;
-			win->data[++point] = 0xFF;
+//			win->data[++point] = 0xFF;
 		}
 		else
 		{
 			win->data[point] = dot.color.rgb.b;
 			win->data[++point] = dot.color.rgb.g;
 			win->data[++point] = dot.color.rgb.r;
-			win->data[++point] = 0xFF;
+//			win->data[++point] = 0xFF;
 		}
 	}
 }

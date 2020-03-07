@@ -44,7 +44,7 @@ void		draw_map(t_mlx *win, t_point **map)
 {
 	const void	*projection = NULL;
 
-	if (win->opt.axis == 0)
+	if (win->opt.axis == 1)
 		projection = (draw_dots_isometric);
 	else if (win->opt.axis == -1)
 		projection = draw_dots_parallel;

@@ -7,13 +7,13 @@ OBJ_DIR = $(CUR_DIR)/objects
 SRC_DIR	= $(CUR_DIR)/sources
 
 SRC		=	main.c 			\
-      		draw_lines.c 	\
-      		events.c 		\
-      		fdf.c 			\
-      		parser.c 		\
-      		lines.c 		\
-      		projection.c 	\
-      		struct.c 		
+      		brezeham.c      \
+            draw_dots.c     \
+            events.c        \
+            fdf.c           \
+            parser.c        \
+            s_lines.c       \
+            s_point.c 		\
 
 OBJ 	=	$(SRC:.c=.o)
 

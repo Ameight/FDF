@@ -36,7 +36,7 @@ void	options(t_mlx *win)
 {
 	win->opt.axis = 1;
 	win->opt.hue.hex_color = LIME;
-	win->scale = 2;
+	win->scale = 20;
 }
 
 t_mlx	*window(int w, int l)
