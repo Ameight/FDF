@@ -1,0 +1,7 @@
+.DS*
+cmake*
+Cmake*
+.idea
+*.o
+libft.a
+fdf
