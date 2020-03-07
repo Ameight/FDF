@@ -1,54 +1,64 @@
-.PHONY : all re clean fclean
+NAME 	= fdf
+LIBFT 	= libft.a
 
-.SUFFIXES :
-.SUFFIXES : .c .o .h .a
+CUR_DIR = $(shell pwd)
+LIB_DIR = $(CUR_DIR)/libft
+OBJ_DIR = $(CUR_DIR)/objects
+SRC_DIR	= $(CUR_DIR)/sources
 
-VPATH = .:libft:/usr/local/include:/usr/local/lib
+SRC		=	main.c 			\
+      		draw_lines.c 	\
+      		events.c 		\
+      		fdf.c 			\
+      		parser.c 		\
+      		lines.c 		\
+      		projection.c 	\
+      		struct.c 		
 
-override CC = gcc
-
-override CFLAGS = -I. -Ilibft -Wall -Wextra -Werror
+OBJ 	=	$(SRC:.c=.o)
 
 MLXFLAGS = 	-I /usr/local/include \
 			-L /usr/local/lib -lmlx \
 			-I includes \
 			-framework OpenGL \
-			-framework AppKit \
+			-framework AppKit 			
 
-FTFLAGS = -Llibft -lft
+SRCS 	= $(addprefix $(SRC_DIR)/, $(SRC))
+OBJS 	= $(addprefix $(OBJ_DIR)/, $(OBJ))
 
-FDFFLAGS = $(CFLAGS) $(FTFLAGS) $(MLXFLAGS)
+LIBFT_H = $(LIB_DIR)/includes
+FDF_H 	= $(CUR_DIR)/includes
 
-MAKE_LIBFT = $(MAKE) -C libft
+CC 		= gcc
+CCFLAGS = -Wall -Werror -Wextra
 
-NAME = fdf
+all: $(NAME)
 
-SRC =	sources/main.c \
-      	sources/draw_lines.c \
-      	sources/events.c \
-      	sources/fdf.c \
-      	sources/handler.c \
-      	sources/lines.c \
-      	sources/projection.c \
-      	sources/struct.c \
-      	sources/events_bonus.c \
-      	sources/rotation.c
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+	make -C $(CUR_DIR) $(OBJS)
 
-OBJ = $(SRC:.c=.o)
+$(LIBFT):
+	make -C $(LIB_DIR) -I$(LIBFT_H) $(LIBFT)
 
-all ::
-	$(MAKE) -C libft
-all :: $(NAME)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CCFLAGS) -c $< -o $@ -I$(LIBFT_H) -I$(FDF_H)
 
-$(NAME) : $(OBJ)
-	$(CC) $(FDFFLAGS) $(OBJ) -o $@
+$(NAME):
+	make -C $(CUR_DIR) $(LIBFT)
+	make -C $(CUR_DIR) $(OBJ_DIR)
+	$(CC) $(CCFLAGS) $(MLXFLAGS) -I$(LIBFT_H) -I$(FDF_H) $(LIB_DIR)/$(LIBFT) $(OBJS) -o $(NAME)
 
-clean :
-	$(MAKE_LIBFT) clean
-	$(RM) -f $(OBJ)
+clean:
+	@make -C $(LIB_DIR) fclean
+	@rm -rf $(OBJ_DIR)
 
-fclean : clean
-	$(MAKE_LIBFT) fclean
-	$(RM) -f $(NAME)
+fclean: clean
+	@rm -f $(NAME)
 
-re : fclean all
+re: fclean all
+
+norm:
+	@norminette
+	
+.PHONY: all clean fclean re norm
