@@ -4,7 +4,7 @@ LIBFT 	= libft.a
 CUR_DIR = $(shell pwd)
 LIB_DIR = $(CUR_DIR)/libft
 OBJ_DIR = $(CUR_DIR)/objects
-SRC_DIR	= $(CUR_DIR)
+SRC_DIR	= $(CUR_DIR)/src
 
 SRC		=	fdf.c			\
 			read_map.c 		
@@ -16,7 +16,7 @@ SRCS 	= $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS 	= $(addprefix $(OBJ_DIR)/, $(OBJ))
 
 LIBFT_H = $(LIB_DIR)/includes
-FDF_H 	= $(CUR_DIR)
+FDF_H 	= $(CUR_DIR)/includes
 
 CC 		= gcc
 CCFLAGS = -Wall -Werror -Wextra
