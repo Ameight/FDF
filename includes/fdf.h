@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgreat <dgreat@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejuana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/05 21:50:50 by dgreat            #+#    #+#             */
-/*   Updated: 2019/10/25 14:28:22 by dgreat           ###   ########.fr       */
+/*   Created: 2020/03/07 21:47:18 by ejuana            #+#    #+#             */
+/*   Updated: 2020/03/07 21:47:24 by ejuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,9 @@ typedef struct		s_point
 
 typedef struct		s_opt
 {
-	short			rot;
-	short			slave;
-	short			bit;
-	short			grad;
 	short			color;
 	short			axis;
 	t_color			hue;
-	int				left_right;
-	int				up_down;
 }					t_opt;
 
 enum				e_o{Y, X};
@@ -107,16 +101,11 @@ typedef struct		s_mlx
 	int				mid[2];
 	t_point			map;
 	unsigned int	scale;
-	struct s_opt	opt;
+	t_opt			opt;
 	t_point			**list;
 	int				bpp;
 	int				lsize;
 	int				endian;
-	t_color			low;
-	t_color			high;
-	double			rotx;
-	double			roty;
-	double			rotz;
 	char			*data;
 	void			*img;
 }					t_mlx;
@@ -146,27 +135,13 @@ t_mlx				*window(int w, int l);
 **					fdf.c
 */
 
-int					brightness(t_color hue, float k);
-
 void				pixel_img(t_mlx *win, t_point dot);
-
-void				pixel_c(t_mlx win, t_point dot);
-
-float				perc(float start, float end, float cur);
-
-int					grad(float k, t_line l, float x);
 
 /*
 **					draw_lines.c
 */
 
-void				dot_md(t_mlx *win, t_line l);
-
 void				brezeham(t_mlx *win, t_line l);
-
-void				drawer(t_mlx *win, t_line l);
-
-void				drawer_grad(t_mlx *win, t_line l);
 
 /*
 **					struct.c
@@ -183,17 +158,6 @@ void				swap_glist(t_point *a, t_point *b);
 t_line				line(t_point a, t_point b);
 
 /*
-**					debug.c
-*/
-
-void				vard(char *s, t_point a);
-
-void				vardot(char *s, t_point a);
-
-void				each_dot(t_mlx win, t_point **tab,
-		void (*f)(char *, t_point));
-
-/*
 **					lines.c
 */
 
@@ -205,39 +169,20 @@ void				draw_map(t_mlx *win, t_point **map);
 
 t_point				draw_dots_isometric(t_mlx win, t_point dot);
 
-t_point				drw_dt_dim(t_mlx win, t_point dot);
-
 t_point				draw_dots_parallel(t_mlx win, t_point dot);
 
 /*
 **					events.c
 */
 
-void				zoom(int key, t_mlx *win);
-
-void				zoom_bits(int key, t_mlx *win);
-
 int					escape_handle(int key);
 
 void				projection(int key, t_mlx *win);
-
-void				move(int key, t_mlx *win);
-
-void				slave(int key, t_mlx *win);
-
-void				coloring(int key, t_mlx *win);
-
-void				color(int key, t_mlx *win);
 
 /*
 **					handler.c
 */
 
 void				reader(int fd);
-
-void				rotate(int key, t_mlx *win);
-t_point				rotate_x(double angle, t_point dot);
-t_point				rotate_y(double angle, t_point dot);
-t_point				rotate_z(double angle, t_point dot);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgreat <dgreat@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejuana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/02 19:35:58 by dgreat            #+#    #+#             */
-/*   Updated: 2019/11/22 20:16:17 by dgreat           ###   ########.fr       */
+/*   Created: 2020/03/07 21:49:17 by ejuana            #+#    #+#             */
+/*   Updated: 2020/03/07 21:49:19 by ejuana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		key_event(int key, void *p_void)
 
 void	options(t_mlx *win)
 {
-	win->opt.slave = 0;
 	win->opt.axis = 1;
 	win->opt.hue.hex_color = LIME;
 	win->scale = 2;
@@ -60,7 +59,7 @@ t_mlx	*window(int w, int l)
 		error_notice("mlx_get_data_addr error");
 	mlx_hook(win->wp, 17, 0, close_window, &win);
 	mlx_hook(win->wp, 2, 0, key_event, win);
-	mlx_key_hook(win->wp, escape_handle, (void *) 0);
+	mlx_key_hook(win->wp, escape_handle, (void *)0);
 	return (win);
 }
 
