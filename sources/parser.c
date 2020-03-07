@@ -12,18 +12,19 @@ void		free_map(int lines, t_point **map)
 	free(map);
 }
 
-t_point		**allocate_memory_for_map(t_point data)
+t_point		**allocate_memory_for_map(t_point point)
 {
 	int		i;
 	t_point	**map;
 
 	i = 0;
-	if ((map = (t_point **)malloc((data.y) * sizeof(t_point *)))
+	if ((map = (t_point **)malloc((point.y) * sizeof(t_point *)))
 			== NULL)
 		error_notice("Malloc error");
-	while (i < data.y)
+	while (i < point.y)
 	{
-		if ((map[i] = (t_point *)malloc((data.x) * sizeof(t_point))) == NULL)
+		if ((map[i] = (t_point *)malloc((point.x)
+				* sizeof(t_point))) == NULL)
 		{
 			free_map(i, map);
 			error_notice("Lines malloc error");

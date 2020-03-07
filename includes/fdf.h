@@ -217,7 +217,7 @@ void				zoom(int key, t_mlx *win);
 
 void				zoom_bits(int key, t_mlx *win);
 
-int					key(int key);
+int					escape_handle(int key);
 
 void				projection(int key, t_mlx *win);
 

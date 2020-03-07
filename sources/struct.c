@@ -23,18 +23,11 @@ t_point	set_dot_c(float x, float y, int hue)
 t_point	set_xyz(float x, float y, char *z_color, int color)
 {
 	t_point		dot;
-	t_string	*cache;
 
 	dot.x = x;
 	dot.y = y;
-	cache = ft_strsplit(z_color, ',');
-	dot.z = ft_atoi(cache[0]);
-	if (cache[1])
-		dot.color.hex_color = ft_atoi_base(cache[1] + 2, 16);
-	else
-		dot.color.hex_color = color;
+	dot.z = ft_atoi(z_color);
 	dot.hue.hex_color = color;
-	free_str(cache);
 	return (dot);
 }
 
