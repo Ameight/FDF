@@ -116,7 +116,6 @@ typedef struct		s_line
 	t_point			d1;
 	short			dir;
 	float			k;
-	short			show;
 }					t_line;
 
 /*
@@ -125,64 +124,19 @@ typedef struct		s_line
 ** ************************************************************************** **
 */
 
-/*
-**					main.c
-*/
-
 t_mlx				*window(int w, int l);
-
-/*
-**					fdf.c
-*/
-
 void				pixel_img(t_mlx *win, t_point dot);
-
-/*
-**					draw_lines.c
-*/
-
 void				brezeham(t_mlx *win, t_line l);
-
-/*
-**					struct.c
-*/
-
 t_point				set_dot(float x, float y);
-
 t_point				set_dot_c(float x, float y, int hue);
-
 t_point				set_xyz(float x, float y, char *z_color, int color);
-
 void				swap_glist(t_point *a, t_point *b);
-
 t_line				line(t_point a, t_point b);
-
-/*
-**					lines.c
-*/
-
 void				draw_map(t_mlx *win, t_point **map);
-
-/*
-**					projection.c
-*/
-
 t_point				draw_dots_isometric(t_mlx win, t_point dot);
-
 t_point				draw_dots_parallel(t_mlx win, t_point dot);
-
-/*
-**					events.c
-*/
-
 int					escape_handle(int key);
-
 void				projection(int key, t_mlx *win);
-
-/*
-**					handler.c
-*/
-
 void				reader(int fd);
 
 #endif

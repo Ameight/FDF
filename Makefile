@@ -31,8 +31,6 @@ SRC =	sources/main.c \
       	sources/lines.c \
       	sources/projection.c \
       	sources/struct.c \
-      	sources/events_bonus.c \
-      	sources/rotation.c
 
 OBJ = $(SRC:.c=.o)
 
