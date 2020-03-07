@@ -1,53 +1,54 @@
-NAME 	= myfdf
-LIBFT 	= libft.a
+.PHONY : all re clean fclean
 
-CUR_DIR = $(shell pwd)
-LIB_DIR = $(CUR_DIR)/libft
-OBJ_DIR = $(CUR_DIR)/objects
-SRC_DIR	= $(CUR_DIR)/src
+.SUFFIXES :
+.SUFFIXES : .c .o .h .a
 
-SRC		=	fdf.c			\
-			read_map.c 		
+VPATH = .:libft:/usr/local/include:/usr/local/lib
 
+override CC = gcc
 
-OBJ 	=	$(SRC:.c=.o)
+override CFLAGS = -I. -Ilibft -Wall -Wextra -Werror
 
-SRCS 	= $(addprefix $(SRC_DIR)/, $(SRC))
-OBJS 	= $(addprefix $(OBJ_DIR)/, $(OBJ))
+MLXFLAGS = 	-I /usr/local/include \
+			-L /usr/local/lib -lmlx \
+			-I includes \
+			-framework OpenGL \
+			-framework AppKit \
 
-LIBFT_H = $(LIB_DIR)/includes
-FDF_H 	= $(CUR_DIR)/includes
+FTFLAGS = -Llibft -lft
 
-CC 		= gcc
-CCFLAGS = -Wall -Werror -Wextra
+FDFFLAGS = $(CFLAGS) $(FTFLAGS) $(MLXFLAGS)
 
-all: $(NAME)
+MAKE_LIBFT = $(MAKE) -C libft
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-	make -C $(CUR_DIR) $(OBJS)
+NAME = fdf
 
-$(LIBFT):
-	make -C $(LIB_DIR) -I$(LIBFT_H) $(LIBFT)
+SRC =	sources/main.c \
+      	sources/draw_lines.c \
+      	sources/events.c \
+      	sources/fdf.c \
+      	sources/handler.c \
+      	sources/lines.c \
+      	sources/projection.c \
+      	sources/struct.c \
+      	sources/events_bonus.c \
+      	sources/rotation.c
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CCFLAGS) -c $< -o $@ -I$(LIBFT_H) -I$(FDF_H)
+OBJ = $(SRC:.c=.o)
 
-$(NAME):
-	make -C $(CUR_DIR) $(LIBFT)
-	make -C $(CUR_DIR) $(OBJ_DIR)
-	$(CC) $(CCFLAGS) -I$(LIBFT_H) -I$(FDF_H) $(LIB_DIR)/$(LIBFT) $(OBJS) -o $(NAME)
+all ::
+	$(MAKE) -C libft
+all :: $(NAME)
 
-clean:
-	@make -C $(LIB_DIR) fclean
-	@rm -rf $(OBJ_DIR)
+$(NAME) : $(OBJ)
+	$(CC) $(FDFFLAGS) $(OBJ) -o $@
 
-fclean: clean
-	@rm -f $(NAME)
+clean :
+	$(MAKE_LIBFT) clean
+	$(RM) -f $(OBJ)
 
-re: fclean all
+fclean : clean
+	$(MAKE_LIBFT) fclean
+	$(RM) -f $(NAME)
 
-norm:
-	@norminette fdf.c fdf.h read_map.c
-	
-.PHONY: all clean fclean re norm
+re : fclean all
