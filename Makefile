@@ -1,16 +1,27 @@
-NAME 	= myfdf
+NAME 	= fdf
 LIBFT 	= libft.a
 
 CUR_DIR = $(shell pwd)
 LIB_DIR = $(CUR_DIR)/libft
 OBJ_DIR = $(CUR_DIR)/objects
-SRC_DIR	= $(CUR_DIR)/src
+SRC_DIR	= $(CUR_DIR)/sources
 
-SRC		=	fdf.c			\
-			read_map.c 		
-
+SRC		=	main.c 			\
+      		brezeham.c      \
+            draw_dots.c     \
+            events.c        \
+            fdf.c           \
+            parser.c        \
+            s_lines.c       \
+            s_point.c 		\
 
 OBJ 	=	$(SRC:.c=.o)
+
+MLXFLAGS = 	-I /usr/local/include \
+			-L /usr/local/lib -lmlx \
+			-I includes \
+			-framework OpenGL \
+			-framework AppKit 			
 
 SRCS 	= $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS 	= $(addprefix $(OBJ_DIR)/, $(OBJ))
@@ -36,7 +47,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 $(NAME):
 	make -C $(CUR_DIR) $(LIBFT)
 	make -C $(CUR_DIR) $(OBJ_DIR)
-	$(CC) $(CCFLAGS) -I$(LIBFT_H) -I$(FDF_H) $(LIB_DIR)/$(LIBFT) $(OBJS) -o $(NAME)
+	$(CC) $(CCFLAGS) $(MLXFLAGS) -I$(LIBFT_H) -I$(FDF_H) $(LIB_DIR)/$(LIBFT) $(OBJS) -o $(NAME)
 
 clean:
 	@make -C $(LIB_DIR) fclean
@@ -48,6 +59,6 @@ fclean: clean
 re: fclean all
 
 norm:
-	@norminette fdf.c fdf.h read_map.c
+	@norminette
 	
 .PHONY: all clean fclean re norm
